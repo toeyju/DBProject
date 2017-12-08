@@ -1,9 +1,13 @@
 package com.example.dbproject;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,20 +15,20 @@ import android.widget.TextView;
 import com.example.dbproject.adapter.AdapterList;
 import com.example.dbproject.db.DBHelper;
 import com.example.dbproject.model.Potter;
-import com.example.dbproject.model.PotterItem;
+
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.*;
 
 import static com.example.dbproject.db.DBHelper.TABLE_NAME;
 
 public class Main2Activity extends AppCompatActivity {
 
-    private ArrayList<Potter> aList = PotterData.potterList;
+    static private ArrayList<Potter> aList = PotterData.potterList;
     private int[] Array =  new int[100];
-    Button correct,wrong;
-    TextView quiz;
-    ImageView pic;
+    Button mcorrect,mwrong;
+    TextView mquiz;
+    ImageView mpic;
 
 
     @Override
@@ -32,10 +36,10 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        correct = findViewById(R.id.button1);
-        wrong = findViewById(R.id.button2);
-        quiz = findViewById(R.id.quiz_text);
-        pic = findViewById(R.id.pic);
+        mcorrect = findViewById(R.id.button1);
+        mwrong = findViewById(R.id.button2);
+        mquiz = findViewById(R.id.quiz_text);
+        mpic = findViewById(R.id.pic);
 
         if(savedInstanceState == null){
             aList.add(new Potter(getString(R.string.quiz_1),"quiz_1.jpg" ,getString(R.string.ans_1), getString(R.string.wrong_1)));
@@ -51,5 +55,62 @@ public class Main2Activity extends AppCompatActivity {
         }
 
 
-}
+        for(int i=0 ; i<10 ; i++) {
+            mquiz.setText(aList.get(i).quiz);
+            mpic.setImageDrawable(Drawable.createFromPath(aList.get(i).picture));
+            mcorrect.setText(aList.get(i).rightans);
+            mwrong.setText(aList.get(i).wrongans);
+
+
+            if (mwrong.isClickable()) {
+                mwrong.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String result = String.format("ผิดนะครับ");
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(Main2Activity.this); // จำ
+                        dialog.setTitle("Result");
+                        dialog.setMessage(result);
+                        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
+            }
+
+            if (mcorrect.isClickable()) {
+                mcorrect.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String result = String.format("ถูกต้องนะครับ");
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(Main2Activity.this); // จำ
+                        dialog.setTitle("Result");
+                        dialog.setMessage(result);
+                        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
+            }
+
+            if (i==9){
+                String result = String.format("จบ");
+                AlertDialog.Builder dialog = new AlertDialog.Builder(Main2Activity.this); // จำ
+                dialog.setTitle("Result");
+                dialog.setMessage(result);
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.show();
+            }
+        }
+    }
 }
