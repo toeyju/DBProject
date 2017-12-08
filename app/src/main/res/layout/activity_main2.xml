@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@drawable/backg"
     android:layout_height="match_parent">
 
     <TextView
-        android:textColor="@android:color/white"
+        android:id="@+id/quiz_text"
         android:textStyle="bold"
         android:gravity="center"
         android:textSize="36dp"
         android:layout_marginTop="24dp"
         android:layout_alignParentTop="true"
-        android:text="Harry Potter"
+        android:text="คำถาม"
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -26,31 +28,14 @@
         android:background="#88222222"
         android:padding="24dp"
         android:id="@+id/linearLayout">
-        <TextView
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@android:color/white"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:id="@+id/title"
-            />
-        <TextView
-            android:layout_marginTop="12dp"
-            android:textColor="@android:color/white"
-            android:textSize="24dp"
-            android:text="Your Name :"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/text1"
-            android:layout_marginTop="16dp"
-            android:shadowColor="#fff"
-            android:textColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:inputType="text"
-            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/pic"
+            android:scaleType="fitXY"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/backg" />
 
     </LinearLayout>
 
@@ -63,7 +48,6 @@
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_centerVertical="true"
             android:layout_marginEnd="35dp"
             android:layout_marginRight="35dp"
@@ -73,7 +57,7 @@
             android:background="#80000000"
             android:paddingLeft="48dp"
             android:paddingRight="48dp"
-            android:text="Start"
+            android:text="ตอบ"
             android:textColor="#ffff"
             android:textSize="16dp"
             android:textStyle="bold" />
@@ -92,7 +76,7 @@
             android:background="#80000000"
             android:paddingLeft="48dp"
             android:paddingRight="48dp"
-            android:text="Exit"
+            android:text="ตอบ"
             android:textColor="#ffff"
             android:textSize="16dp"
             android:textStyle="bold" />

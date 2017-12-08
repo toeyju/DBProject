@@ -2,8 +2,13 @@ package com.example.dbproject.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by RTA on 12/6/2017.
@@ -11,8 +16,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper{
 
+    private final String TAG = getClass().getSimpleName();
     private static final String DATABASE_NAME = "potter.db";
     private static final int DATABASE_VERSION = 1;
+
 
     public static final String TABLE_NAME = "phone_number";
     public static final String COL_ID = "_id";
@@ -21,8 +28,8 @@ public class DBHelper extends SQLiteOpenHelper{
     public static final String COL_right = "rightans";
     public static final String COL_wrong = "wrongans";
 
-    public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DBHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -30,9 +37,9 @@ public class DBHelper extends SQLiteOpenHelper{
         String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
                 + COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_quiz + " TEXT, "
-                + COL_pic + " TEXT, "
-                + COL_right + "TEXT, "
-                + COL_wrong + "TEXT, ";
+                + COL_pic + " INTEGER, "
+                + COL_right + " TEXT, "
+                + COL_wrong + " TEXT, ";
 
         db.execSQL(CREATE_TABLE);
         insertInitialData(db);
@@ -115,4 +122,34 @@ public class DBHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+    
+    /*public List<PotterItem> getDataList(){
+        List<PotterItem> data = new ArrayList<>();
+
+        sqLiteDatabase = this.getWritableDatabase();
+
+        Cursor cursor = sqLiteDatabase.query(
+            TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+
+        while (cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndex(DBHelper.COL_ID));
+            String quiz = cursor.getString(cursor.getColumnIndex(DBHelper.COL_quiz));
+            String picture = cursor.getString(cursor.getColumnIndex(DBHelper.COL_pic));
+            String rightans = cursor.getString(cursor.getColumnIndex(DBHelper.COL_right));
+            String wrongans = cursor.getString(cursor.getColumnIndex(DBHelper.COL_wrong));
+
+            PotterItem item = new PotterItem(id, quiz, picture, rightans, wrongans);
+            data.add(item);
+
+        }
+
+        return data;
+    }*/
 }
